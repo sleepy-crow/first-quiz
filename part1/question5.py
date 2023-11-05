@@ -20,7 +20,11 @@
 
 sql_create_favorite_foods = """
 
-Your SQL here.
+CREATE TABLE favorite_foods (
+food_id integer,
+name string,
+vegetarian integer
+);
 
 """
 
@@ -30,16 +34,27 @@ Your SQL here.
 
 sql_alter_tables_with_favorite_food = """
 
-Your SQL here.
+BEGIN TRANSACTION;
 
+ALTER TABLE animals
+ADD favorite_food_id integer;
+
+ALTER TABLE people
+ADD favorite_food_id integer;
+
+COMMIT;
 """
 
 # Part 5.C:
 # Write a query to select all pets that are vegetarian.
-# THe output should be a list of tuples in the format: (<pet name>, <food name>)
+# The output should be a list of tuples in the format: (<pet name>, <food name>)
 
 sql_select_all_vegetarian_pets = """
 
-Your SQL here.
+SELECT a.name AS pet_name, f.name AS food_name
+FROM animals AS a
+JOIN favorite_foods AS f
+ON a.favorite_food_id = f.food_id
+WHERE f.vegetarian = 1;
 
 """
